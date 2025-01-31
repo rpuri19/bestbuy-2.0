@@ -47,7 +47,6 @@ class Product:
         """Buys a given quantity of the product.
             Returns the total price (float) of the purchase.
             Updates the quantity of the product.
-            In case of a problem (when? think about it), raises an Exception.
         """
         if quantity <= 0:
             raise ValueError ("Quantity to buy must be greater than 0")
