@@ -36,4 +36,4 @@ def test_buy_modifies_quantity():
 def test_buy_too_much():
     product = products.Product("MacBook Air M2", price=1450, quantity=100)
     with pytest.raises(ValueError):
-        product.buy(1000)
+        product.buy(101)
