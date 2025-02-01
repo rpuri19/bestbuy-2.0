@@ -8,7 +8,6 @@ class Product:
         if quantity < 0:
             raise ValueError ("Quantity cannot be negative")
 
-
         self.name = name
         self.price = price
         self.quantity = quantity
@@ -22,8 +21,7 @@ class Product:
         return float(self.quantity)
 
     def set_quantity(self, quantity):
-        if quantity < 0:
-            raise ValueError("Quantity can not be less than 0 ")
+
         self.quantity = quantity
 
         if self.quantity == 0:
@@ -52,6 +50,43 @@ class Product:
             raise ValueError ("Quantity to buy must be greater than 0")
         if quantity > self.quantity:
             raise ValueError ("Not enough quantity available")
+        total_price = self.price * quantity
+        new_quantity = self.quantity - quantity
+        self.set_quantity(new_quantity)
+        return total_price
+
+class NonStockedProduct(Product):
+    def __init__(self, name, price):
+        super().__init__(name, price, quantity=0)
+        self.active = False
+
+    def show(self):
+        return f"{self.name}, Price: {self.price}"
+
+
+class LimitedProduct(Product):
+    def __init__(self, name, price, quantity, maximum):
+        super().__init__(name, price, quantity)
+        self.maximum = maximum
+
+    def show(self):
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}, Maximum: {self.maximum}"
+
+    def get_maximum(self):
+        return self.maximum
+
+    def buy(self, quantity):
+        """Buys a given quantity of the product.
+            Returns the total price (float) of the purchase.
+            Updates the quantity of the product.
+            Raises error if the quantity exceeds maximum value allowed
+        """
+        if quantity <= 0:
+            raise ValueError ("Quantity to buy must be greater than 0")
+        if quantity > self.quantity:
+            raise ValueError ("Not enough quantity available")
+        if quantity > self.get_maximum():
+            raise ValueError ("Exceeded maximum allowed number for purchase. ")
         total_price = self.price * quantity
         new_quantity = self.quantity - quantity
         self.set_quantity(new_quantity)
