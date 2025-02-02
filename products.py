@@ -13,6 +13,7 @@ class Product:
         self.quantity = quantity
         if quantity > 0:
             self.active = True
+        self.promotion = None
 
     def __str__(self):
         return f"Name: {self.name}, Price: ${self.price:.2f}, Quantity: {self.quantity}, Active: {self.active}"
@@ -38,8 +39,18 @@ class Product:
     def deactivate(self):
         self.active = False
 
+    def set_promotion(self, promotion):
+        self.promotion = promotion
+
+    def get_promotion(self):
+        return self.promotion
+
     def show(self):
-        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        if self.promotion:
+            promotion_name = self.promotion.name
+            return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}, Promotion: {promotion_name}"
+        else:
+            return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}, Promotion: No promotion"
 
     def buy(self, quantity):
         """Buys a given quantity of the product.
@@ -50,7 +61,12 @@ class Product:
             raise ValueError ("Quantity to buy must be greater than 0")
         if quantity > self.quantity:
             raise ValueError ("Not enough quantity available")
-        total_price = self.price * quantity
+        if self.promotion:
+            total_price = self.promotion.apply_promotion(self, quantity)
+
+        else:
+            total_price = self.price * quantity
+
         new_quantity = self.quantity - quantity
         self.set_quantity(new_quantity)
         return total_price

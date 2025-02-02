@@ -18,7 +18,7 @@ class PercentDiscount(Promotion):
         new_price = product.price * quantity * (1 - product.discount / 100)
         return new_price
 
-class SecondHalfPrice:
+class SecondHalfPrice(Promotion):
     def __init__(self, name):
         super().__init__(name)
 
@@ -40,8 +40,9 @@ class ThirdOneFree(Promotion):
         if quantity < 3:
             total_price = product.price * quantity
             return total_price
-
-        total_price = product.price * quantity * 2/3
+        free_items = quantity // 3
+        priced_items = quantity - free_items
+        total_price = product.price * priced_items
         return int(total_price)
 
 
