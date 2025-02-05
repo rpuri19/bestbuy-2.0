@@ -15,7 +15,7 @@ class PercentDiscount(Promotion):
         self.percent = percent
 
     def apply_promotion(self, product, quantity) -> float:
-        new_price = product.price * quantity * (1 - product.discount / 100)
+        new_price = product.price * quantity * (1 - self.percent/ 100)
         return new_price
 
 class SecondHalfPrice(Promotion):

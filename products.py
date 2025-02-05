@@ -8,6 +8,7 @@ class Product:
         if quantity < 0:
             raise ValueError ("Quantity cannot be negative")
 
+
         self.name = name
         self.price = price
         self.quantity = quantity
@@ -73,11 +74,11 @@ class Product:
 
 class NonStockedProduct(Product):
     def __init__(self, name, price):
-        super().__init__(name, price, quantity=0)
-        self.active = False
+        super().__init__(name, price, quantity= 0)
+        self.active = True
 
     def show(self):
-        return f"{self.name}, Price: {self.price}"
+        return f"{self.name}, Price: {self.price} Quantity: Unlimited"
 
 
 class LimitedProduct(Product):
