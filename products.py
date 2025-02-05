@@ -80,6 +80,10 @@ class NonStockedProduct(Product):
     def show(self):
         return f"{self.name}, Price: {self.price} Quantity: Unlimited"
 
+    def buy(self, quantity):
+        total_price = self.price * quantity
+        return total_price
+
 
 class LimitedProduct(Product):
     def __init__(self, name, price, quantity, maximum):

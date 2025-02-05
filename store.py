@@ -46,7 +46,5 @@ class Store:
                 raise ValueError ("Product not in list")
             if not product.is_active():
                 raise ValueError ("Product not available.")
-            if product.get_quantity() < quantity:
-                raise ValueError ("Insufficient stock.")
             total_price += product.buy(quantity)
         return total_price
