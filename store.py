@@ -1,7 +1,9 @@
 from products import Product
 class Store:
-    all_products = []
-    def __init__(self, all_products):
+
+    def __init__(self, all_products=None):
+        if all_products is None:
+            all_products = []
         if not all(isinstance(product, Product) for product in all_products):
             raise ValueError("All items in all_products must be Product instances.")
         self.all_products = all_products
@@ -35,7 +37,7 @@ class Store:
         total_price = 0
 
         for product_id, quantity in shopping_list:
-            if product_id > len(self.all_products):
+            if product_id > len(self.all_products) or product_id < 1:
                 raise ValueError ("Not all product # entered valid. Please check ")
             else:
                 product = self.all_products[product_id - 1]
